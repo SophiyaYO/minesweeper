@@ -1,46 +1,69 @@
 package model;
 
-import repositories.GameLevelRepository;
+import repositories.CellRepository;
 
 public class GameBoard {
     private int level;
     private int rolls;
     private int cols;
     private int mines;
+    private Cell[][] maskedBoard;
+    private Cell[][] gameBoard;
 
     public GameBoard(int numberLevel) {
         this.level = numberLevel;
+        setRolls();
+        setMines();
+        this.maskedBoard = new Cell[getRolls()][getRolls()];
+        this.gameBoard = new Cell[0][];
     }
 
-    private void setRolls() {
-        switch (level) {
+    public void setRolls() {
+        switch (getLevel()) {
             case 0:
-                this.rolls = 9;
+                this.rolls =9;
                 break;
             case 1:
-                this.rolls = 16;
+                this.rolls= 16;
                 break;
             case 2:
                 this.rolls = 24;
                 break;
+        }
+        this.rolls = rolls;
+    }
 
+    public void setMines() {
+        switch (getLevel()) {
+            case 0:
+                this.mines = 10;
+                break;
+            case 1:
+                this.mines = 40;
+                break;
+            case 2:
+                this.mines = 99;
+                break;
         }
     }
 
-    public void setCols() {
-        this.cols = this.getRolls();
+    private int getLevel() {
+        return this.level;
     }
 
     private int getRolls() {
         return this.rolls;
     }
 
-    public void setMines(int mines) {
-        this.mines = mines;
-    }
+    public Cell[][] createClientBoard(){
 
-    public int getLevel() {
-        return this.level;
+        for (int y = 0; y < getRolls(); y++) {
+            for (int x = 0; x < getRolls(); x++) {
+                maskedBoard[y][x] = new MaskedCell();
+            }
+        }
+
+        return maskedBoard;
     }
 
 

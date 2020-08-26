@@ -1,3 +1,4 @@
+import controller.BoardController;
 import view.IntroMsg;
 
 import java.io.BufferedReader;
@@ -16,6 +17,10 @@ public class MinesweeperApplication {
         int selectedLevel = Integer.parseInt(input);
 
         System.out.println(selectedLevel);
+
+        BoardController board = new BoardController(selectedLevel);
+
+        board.printMaskedBoard();
 
     }
 }

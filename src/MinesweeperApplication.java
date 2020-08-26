@@ -22,5 +22,19 @@ public class MinesweeperApplication {
 
         board.printMaskedBoard();
 
+
+        String[] moveCoord = reader.readLine().split(" ");
+        int col = Integer.parseInt(moveCoord[1]);
+        int rol = Integer.parseInt(moveCoord[0]);
+
+        BoardController gameBoard = new BoardController(selectedLevel,col,rol);
+
+        gameBoard.printGameBoard();
+
+        boolean hasLost = false;
+
+        while (!hasLost){
+
+        }
     }
 }

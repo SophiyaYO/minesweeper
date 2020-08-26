@@ -1,12 +1,10 @@
 package model;
 
-import repositories.CellRepository;
-
-public class MaskedCell extends Cell{
+public class MaskedCell extends Cell {
     boolean hasMine;
     String cellValue;
 
-    public MaskedCell(){
+    public MaskedCell() {
         this.hasMine = setIsMine();
         this.cellValue = "-";
     }

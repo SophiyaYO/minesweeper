@@ -14,24 +14,35 @@ public class BoardController {
 
     public CellRepository[][] getMaskedBoard() {
 
-
         return this.maskedBoard.createClientBoard();
     }
 
     public void printMaskedBoard() {
         int iterNumber = getMaskedBoard().length;
+        StringBuilder outputLine = new StringBuilder();
 
         System.out.println("Current Status of Board :");
 
         for (int i = 0; i < iterNumber; i++) {
             if (i==0){
-                System.out.println();
+                outputLine.append("    ");
+                for (int k = 0; k < iterNumber; k++) {
+                    outputLine.append(k).append(" ");
+                }
+                outputLine.append(System.getProperty("line.separator"));
 
             }
             for (int j = 0; j < iterNumber; j++) {
-                System.out.print(getMaskedBoard()[i][j].getValue() + " ");
+                if (j==0){
+                    outputLine.append(i);
+                    outputLine.append("   ");
+                }
+                outputLine.append(getMaskedBoard()[i][j].getValue()).append(" ");
             }
-            System.out.println();
+
+            outputLine.append(System.getProperty("line.separator"));
         }
+
+        System.out.println(outputLine.toString().replaceFirst("\\s++$", ""));
     }
 }

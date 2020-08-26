@@ -5,7 +5,6 @@ import repositories.CellRepository;
 public class GameBoard {
     private int level;
     private int rolls;
-    private int cols;
     private int mines;
     private Cell[][] maskedBoard;
     private Cell[][] gameBoard;
@@ -30,7 +29,6 @@ public class GameBoard {
                 this.rolls = 24;
                 break;
         }
-        this.rolls = rolls;
     }
 
     public void setMines() {
@@ -53,6 +51,10 @@ public class GameBoard {
 
     private int getRolls() {
         return this.rolls;
+    }
+
+    private int getMines(){
+        return  this.mines;
     }
 
     public Cell[][] createClientBoard(){

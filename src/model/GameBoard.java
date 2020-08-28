@@ -1,20 +1,20 @@
 package model;
 
+import repositories.BoardRepository;
+
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoard implements BoardRepository {
     private int level;
     private int rolls;
     private int mines;
-    private Cell[][] maskedBoard;
-    private Cell[][] gameBoard;
+    private Cell[][] board;
 
     public GameBoard(int numberLevel) {
         this.level = numberLevel;
         setRolls();
         setMines();
-        this.maskedBoard = new Cell[getRolls()][getRolls()];
-        this.gameBoard = new Cell[getRolls()][getRolls()];
+        this.board = new Cell[getRolls()][getRolls()];
     }
 
     private void setRolls() {
@@ -53,6 +53,12 @@ public class GameBoard {
         return this.rolls;
     }
 
+    //dont forget to correct it!
+    @Override
+    public Cell[][] getBoard() {
+        return new Cell[0][];
+    }
+
     public int getMines() {
         return this.mines;
     }
@@ -61,54 +67,54 @@ public class GameBoard {
 
         for (int y = 0; y < getRolls(); y++) {
             for (int x = 0; x < getRolls(); x++) {
-                maskedBoard[y][x] = new MaskedCell();
+                board[y][x] = new MaskedCell();
             }
         }
 
-        return maskedBoard;
+        return board;
     }
 
-    public Cell[][] generateGameBoard(int size, int colX, int rolY, int mines) {
+//    public Cell[][] generateGameBoard(int size, int colX, int rolY, int mines) {
+//
+//        for (int y = 0; y < size; y++) {
+//            for (int x = 0; x < size; x++) {
+////                gameBoard[y][x] = new MaskedCell();
+//            }
+//        }
+//
+//        setGameBoardMines(size, colX, rolY, mines);
+//
+//        return gameBoard;
+//    }
 
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
-                gameBoard[y][x] = new MaskedCell();
-            }
-        }
+//    public Cell[][] getGameBoard() {
+//        return this.gameBoard;
+//    }
 
-        setGameBoardMines(size, colX, rolY,mines);
+//    public boolean getCellStatus(int r, int c) {
+//        return this.gameBoard[r][c].getIsMine();
+//    }
 
-        return gameBoard;
-    }
-
-    public Cell[][] getGameBoard() {
-        return this.gameBoard;
-    }
-
-    public boolean getCellStatus(int r, int c){
-        return this.gameBoard[r][c].getIsMine();
-    }
-
-    private void setGameBoardMines(int size, int colX, int rolY, int mines) {
-        int counter = mines;
-        Random random = new Random();
-        while (counter > 0) {
-            int row = random.nextInt(size);
-            int col = random.nextInt(size);
-
-            if (row == rolY && col == colX) {
-                while (row == rolY || col == colX) {
-                    row = random.nextInt(size);
-                    col = random.nextInt(size);
-                }
-            }
-
-            if (!gameBoard[row][col].hasMine) {
-                gameBoard[row][col] = new MineCell();
-                counter--;
-            }
-        }
-    }
+//    private void setGameBoardMines(int size, int colX, int rolY, int mines) {
+//        int counter = mines;
+//        Random random = new Random();
+//        while (counter > 0) {
+//            int row = random.nextInt(size);
+//            int col = random.nextInt(size);
+//
+//            if (row == rolY && col == colX) {
+//                while (row == rolY || col == colX) {
+//                    row = random.nextInt(size);
+//                    col = random.nextInt(size);
+//                }
+//            }
+//
+//            if (!gameBoard[row][col].hasMine) {
+//                gameBoard[row][col] = new MineCell();
+//                counter--;
+//            }
+//        }
+//    }
 
 
 }

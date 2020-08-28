@@ -1,7 +1,7 @@
 package view;
 
 public class GameMessage {
-    static final String ENTER_MOVE = "Enter your move, (row, column)\n"+
+    static final String ENTER_MOVE = "Enter your move, (row, column)\n" +
             "->";
     static final String CURR_STATUS_BOARD = "Current Status of Board :";
 
@@ -20,19 +20,20 @@ public class GameMessage {
         this.msgStatus = CURR_STATUS_BOARD;
     }
 
-    public String getMsgMove(){
-        return this.msgMove;
+    public void getMsgMove() {
+        System.out.println((this.msgMove));
     }
 
-    public String getMsgStatus(){
-        return this.msgStatus;
+    public void getMsgStatus() {
+        System.out.println(this.msgStatus);
     }
 
-    public String getMsgWon(){
-        return this.msgWon;
+    public void getMsgWon() {
+        System.out.println(this.msgWon);
     }
 
-    public String getMsgLost(){
-        return this.msgLost;
+    public void getMsgLost() {
+        System.out.println(this.msgLost);
     }
+
 }

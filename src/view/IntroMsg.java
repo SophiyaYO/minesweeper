@@ -12,7 +12,7 @@ public class IntroMsg {
         this.msg = INTRO_MSG;
     }
 
-    public String getIntroMsg(){
-      return this.msg;
+    public void getIntroMsg(){
+        System.out.println(this.msg);
     }
 }

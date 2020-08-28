@@ -2,12 +2,10 @@ package model;
 
 public class DigitCell extends Cell {
     private boolean hasMine;
-    private String cellValue;
-    private int value;
+    private int cellValue;
 
-    public DigitCell(String cellValue) {
+    public DigitCell(int cellValue) {
         this.hasMine = setIsMine();
-        this.value = Integer.parseInt(cellValue);
     }
 
     @Override
@@ -22,10 +20,7 @@ public class DigitCell extends Cell {
 
     @Override
     public String getValue() {
-        return null;
+        return String.valueOf(this.cellValue);
     }
 
-    public int getNumberValue() {
-        return this.value;
-    }
 }

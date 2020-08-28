@@ -69,8 +69,9 @@ public class GameBoard {
     }
 
     public Cell[][] generateGameBoard(int size, int colX, int rolY, int mines) {
-        for (int y = 0; y < getRolls(); y++) {
-            for (int x = 0; x < getRolls(); x++) {
+
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
                 gameBoard[y][x] = new MaskedCell();
             }
         }
@@ -78,6 +79,14 @@ public class GameBoard {
         setGameBoardMines(size, colX, rolY,mines);
 
         return gameBoard;
+    }
+
+    public Cell[][] getGameBoard() {
+        return this.gameBoard;
+    }
+
+    public boolean getCellStatus(int r, int c){
+        return this.gameBoard[r][c].getIsMine();
     }
 
     private void setGameBoardMines(int size, int colX, int rolY, int mines) {

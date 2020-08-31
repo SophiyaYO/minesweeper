@@ -1,9 +1,6 @@
 package controller;
 
-import model.Cell;
-import model.EmptyCell;
-import model.MaskedBoard;
-import model.RealBoard;
+import model.*;
 import view.GameMessage;
 
 public class BoardController {
@@ -43,28 +40,26 @@ public class BoardController {
     public void firstCellChosen(int r, int c) {
         this.realBoard.setGameBoardMines(c, r);
 
-        if (this.getRealBoard()[r][c].getValue().equals("-")){
+        if (this.getRealBoard()[r][c].getValue().equals("-")) {
             this.getMaskedBoard()[r][c] = new EmptyCell();
             this.getRealBoard()[r][c] = new EmptyCell();
         }
 
         printBoard(this.getRealBoard());//todo: delete this row later
+        this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
 
         if (checkIfCellIsEmpty(r, c)) {
             //recursion
-            this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
             this.realBoard.recursionEmptyCells(r, c);
 
-            for (int[] mine : this.realBoard.getRecursionEmptyCells()) {
-                this.maskedBoard.updateStatusToMines(mine[0], mine[1]);
+            for (int[] mine : this.realBoard.getRecursionEmptyCellsCollection()) {
+                this.maskedBoard.updateStatusToEmpty(mine[0], mine[1]);
             }
 
-            this.activeMsg.getMsgStatus();
-            printBoard(this.maskedBoard.getBoard());
-            this.activeMsg.getMsgMove();
         }
-        this.activeMsg.getMsgStatus();
         printBoard(this.maskedBoard.getBoard());
+        this.activeMsg.getMsgMove();
+
     }
 
     public void play(int r, int c) {
@@ -78,25 +73,23 @@ public class BoardController {
             this.setDead();
             printCurrentClientBoardAndMsgs();
         } else {
-            this.realBoard.updateTypeCell(r, c);
 
             if (checkIfCellIsEmpty(r, c)) {
                 //recursive
                 this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
                 this.realBoard.recursionEmptyCells(r, c);
 
-                for (int[] mine : this.realBoard.getRecursionEmptyCells()) {
-
+                for (int[] mine : this.realBoard.getRecursionEmptyCellsCollection()) {
                     this.maskedBoard.updateStatusToEmpty(mine[0], mine[1]);
                 }
 
-                this.activeMsg.getMsgStatus();
+                this.realBoard.getRecursionEmptyCellsCollection().clear();
+
                 printBoard(this.maskedBoard.getBoard());
                 this.activeMsg.getMsgMove();
 
             } else {
                 this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
-                this.activeMsg.getMsgStatus();
                 printBoard(this.maskedBoard.getBoard());
                 this.activeMsg.getMsgMove();
             }
@@ -106,7 +99,13 @@ public class BoardController {
     }
 
     private boolean checkIfCellIsEmpty(int r, int c) {
-        return this.realBoard.getBoard()[r][c].getValue().equals(" ");
+        boolean isEmpty= false;
+        if ((this.getRealBoard()[r][c] instanceof EmptyCell) || this.getRealBoard()[r][c] instanceof MaskedCell){
+            this.getRealBoard()[r][c] = new EmptyCell();
+            isEmpty = true;
+        }
+
+        return isEmpty;
     }
 
     private void printCurrentClientBoardAndMsgs() {

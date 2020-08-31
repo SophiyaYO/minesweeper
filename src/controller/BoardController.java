@@ -7,6 +7,7 @@ public class BoardController {
     private final RealBoard realBoard;
     private final MaskedBoard maskedBoard;
     private final GameMessage activeMsg;
+    private int movesLeft;
     private boolean dead;
 
     public BoardController(int inputLevel) {
@@ -31,6 +32,10 @@ public class BoardController {
         return this.dead;
     }
 
+    public int getMovesLeft() {
+        return this.movesLeft;
+    }
+
     public void initialStart() {
         this.activeMsg.getMsgMove();
         printBoard(getMaskedBoard());
@@ -40,6 +45,7 @@ public class BoardController {
     public void firstCellChosen(int r, int c) {
         if (isValidCell(r, c)) {
             this.realBoard.setGameBoardMines(c, r);
+            this.movesLeft = this.realBoard.decreaseMoves();
 
             if (this.getRealBoard()[r][c].getValue().equals("-")) {
                 this.getMaskedBoard()[r][c] = new EmptyCell(r, c);
@@ -62,6 +68,7 @@ public class BoardController {
 
     public void play(int r, int c) {
         if (isValidCell(r, c)) {
+            this.movesLeft = this.realBoard.decreaseMoves();
             //dead statement- if chosen cell is mine
             if (this.realBoard.getCellStatus(r, c)) {
 
@@ -79,6 +86,7 @@ public class BoardController {
                     openAdjacentEmptyCells(r, c);
 
                     printBoard(this.maskedBoard.getBoard());
+                    this.movesLeft = this.getMovesLeft();
                     this.activeMsg.getMsgMove();
 
                 } else {

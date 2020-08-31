@@ -89,6 +89,10 @@ public interface BoardRepository {
             return this.rolls;
         }
 
+        public int decreaseMoves(){
+            return this.getMovesLeft()-1;
+        }
+
         public int getMovesLeft() {
             return this.movesLeft;
         }

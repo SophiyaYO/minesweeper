@@ -21,7 +21,6 @@ public class RealBoard extends BoardRepository.GameBoard {
         return super.getBoard();
     }
 
-
     public boolean getCellStatus(int r, int c) {
         return this.getBoard()[r][c].getIsMine();
     }
@@ -112,6 +111,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.getRecursionEmptyCellsCollection().contains(this.getBoard()[r][c - 1])) {
                         this.setToEmptyCell(r, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r][c - 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r, c - 1);
                     }
                 }
@@ -122,6 +122,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r][c + 1])) {
                         this.setToEmptyCell(r, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r][c + 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r, c + 1);
                     }
                 }
@@ -131,6 +132,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c + 1])) {
                         this.setToEmptyCell(r + 1, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c + 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r + 1, c + 1);
                     }
                 }
@@ -140,6 +142,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c - 1])) {
                         this.setToEmptyCell(r + 1, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c - 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r + 1, c - 1);
                     }
                 }
@@ -149,6 +152,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c + 1])) {
                         this.setToEmptyCell(r - 1, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c + 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r - 1, c + 1);
                     }
                 }
@@ -158,6 +162,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c - 1])) {
                         this.setToEmptyCell(r - 1, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c - 1]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r - 1, c - 1);
                     }
                 }
@@ -167,6 +172,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c])) {
                         this.setToEmptyCell(r - 1, c);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r - 1, c);
                     }
                 }
@@ -176,6 +182,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c])) {
                         this.setToEmptyCell(r + 1, c);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c]);
+                        this.decreaseMoves();
                         recursionEmptyCells(r + 1, c);
                     }
                 }

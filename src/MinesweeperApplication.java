@@ -22,7 +22,7 @@ public class MinesweeperApplication {
         int col = Integer.parseInt(moveCoord[1]);
         int rol = Integer.parseInt(moveCoord[0]);
 
-        game.play(rol, col);
+//        game.play(rol, col);
         game.firstCellChosen(rol,col);
 
         boolean hasLost = false;

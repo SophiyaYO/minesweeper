@@ -6,6 +6,7 @@ public class DigitCell extends Cell {
 
     public DigitCell(int cellValue) {
         this.hasMine = setIsMine();
+        this.cellValue=cellValue;
     }
 
     @Override

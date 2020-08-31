@@ -48,7 +48,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     while (continueRand) {
                         row = random.nextInt(super.getRolls());
                         col = random.nextInt(super.getRolls());
-                        if (isValidCell(row,col)) {
+                        if (isValidCell(row, col)) {
                             if ((row != rolY || col != colX)) {
                                 continueRand = false;
                             }
@@ -56,11 +56,43 @@ public class RealBoard extends BoardRepository.GameBoard {
                     }
                 }
 
-                if (!getBoard()[row][col].hasMine) {
-                    getBoard()[row][col] = new MineCell();
+                if (!getCellStatus(row,col)) {
+                    this.getBoard()[row][col] = new MineCell();
                     mineLocations.add(new int[]{row, col});
                     counter--;
                 }
+            }
+        }
+
+        calculateAndSetOnPositionDigitCells();
+    }
+
+    private void calculateAndSetOnPositionDigitCells(){
+        for (int[] mine : this.getMineLocations()) {
+
+            if (isValidCell(mine[0], mine[1] - 1)) {
+                this.updateTypeCell(mine[0], mine[1] - 1);
+            }
+            if (isValidCell(mine[0], mine[1] + 1)) {
+                this.updateTypeCell(mine[0], mine[1] + 1);
+            }
+            if (isValidCell(mine[0] + 1, mine[1] + 1)) {
+                this.updateTypeCell(mine[0]+ 1, mine[1] + 1);
+            }
+            if (isValidCell(mine[0] + 1, mine[1] - 1)) {
+                this.updateTypeCell(mine[0]+ 1, mine[1] - 1);
+            }
+            if (isValidCell(mine[0] - 1, mine[1] + 1)) {
+                this.updateTypeCell(mine[0]- 1, mine[1] + 1);
+            }
+            if (isValidCell(mine[0] - 1, mine[1] - 1)) {
+                this.updateTypeCell(mine[0]- 1, mine[1] - 1);
+            }
+            if (isValidCell(mine[0] - 1, mine[1])) {
+                this.updateTypeCell(mine[0]- 1, mine[1]);
+            }
+            if (isValidCell(mine[0] + 1, mine[1])) {
+                this.updateTypeCell(mine[0] + 1, mine[1]);
             }
         }
     }
@@ -126,7 +158,6 @@ public class RealBoard extends BoardRepository.GameBoard {
     public void updateTypeCell(int r, int c) {
         if (isValidCell(r, c)) {
             int countMines = 0;
-            int counter = 0;
 
             if (isValidCell(r, c - 1)) {
                 if (this.getBoard()[r][c - 1].getIsMine()) {
@@ -170,9 +201,6 @@ public class RealBoard extends BoardRepository.GameBoard {
             }
 
             if (countMines == 0) {
-                this.getBoard()[r][c] = new EmptyCell();
-
-                this.recursionEmptyCells.add(new int[]{r, c - 1});
                 return;
             }
 

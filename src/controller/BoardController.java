@@ -1,6 +1,7 @@
 package controller;
 
 import model.Cell;
+import model.EmptyCell;
 import model.MaskedBoard;
 import model.RealBoard;
 import view.GameMessage;
@@ -41,8 +42,14 @@ public class BoardController {
 
     public void firstCellChosen(int r, int c) {
         this.realBoard.setGameBoardMines(c, r);
-        this.realBoard.updateTypeCell(r, c);
-        printBoard(this.getRealBoard());
+
+        if (this.getRealBoard()[r][c].getValue().equals("-")){
+            this.getMaskedBoard()[r][c] = new EmptyCell();
+            this.getRealBoard()[r][c] = new EmptyCell();
+        }
+
+        printBoard(this.getRealBoard());//todo: delete this row later
+
         if (checkIfCellIsEmpty(r, c)) {
             //recursion
             this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
@@ -55,10 +62,7 @@ public class BoardController {
             this.activeMsg.getMsgStatus();
             printBoard(this.maskedBoard.getBoard());
             this.activeMsg.getMsgMove();
-        } else {
-            this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
         }
-
         this.activeMsg.getMsgStatus();
         printBoard(this.maskedBoard.getBoard());
     }

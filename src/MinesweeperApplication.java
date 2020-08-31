@@ -1,4 +1,5 @@
 import controller.BoardController;
+import view.GameMessage;
 import view.IntroMsg;
 
 import java.io.BufferedReader;
@@ -35,6 +36,11 @@ public class MinesweeperApplication {
             game.play(rol,col);
             hasLost=game.getDead();
 
+        }
+
+        if (!hasLost){
+            GameMessage gameMessage = new GameMessage();
+            gameMessage.getMsgWon();
         }
     }
 }

@@ -4,7 +4,8 @@ public class DigitCell extends Cell {
     private boolean hasMine;
     private int cellValue;
 
-    public DigitCell(int cellValue) {
+    public DigitCell(int row, int col, int cellValue) {
+        super(row,col);
         this.hasMine = setIsMine();
         this.cellValue=cellValue;
     }

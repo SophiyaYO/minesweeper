@@ -9,22 +9,24 @@ public interface BoardRepository {
     Cell[][] getBoard();
 
     class GameBoard implements BoardRepository {
-        private int level;
+        private final int level;
         private int rolls;
         private int mines;
-        private Cell[][] board;
+        private int movesLeft;
+        private final Cell[][] board;
 
         public GameBoard(int numberLevel) {
             this.level = numberLevel;
             setRolls();
             setMines();
+            setMovesLeft();
             this.board = new Cell[getRolls()][getRolls()];
         }
 
         public void setBoard() {
             for (int y = 0; y < getRolls(); y++) {
                 for (int x = 0; x < getRolls(); x++) {
-                    this.board[y][x] = new MaskedCell();
+                    this.board[y][x] = new MaskedCell(y,x);
                 }
             }
         }
@@ -49,10 +51,24 @@ public interface BoardRepository {
                     this.mines = 10;
                     break;
                 case 1:
-                    this.mines = 40;
+                    this.mines = 216;
                     break;
                 case 2:
-                    this.mines = 99;
+                    this.mines = 477;
+                    break;
+            }
+        }
+
+        private void setMovesLeft(){
+            switch (getLevel()) {
+                case 0:
+                    this.movesLeft = 71;
+                    break;
+                case 1:
+                    this.movesLeft = 40;
+                    break;
+                case 2:
+                    this.movesLeft = 99;
                     break;
             }
         }
@@ -73,6 +89,9 @@ public interface BoardRepository {
             return this.rolls;
         }
 
+        public int getMovesLeft() {
+            return this.movesLeft;
+        }
     }
 
 }

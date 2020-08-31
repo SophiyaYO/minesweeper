@@ -4,7 +4,8 @@ public class MaskedCell extends Cell {
     boolean hasMine;
     String cellValue;
 
-    public MaskedCell() {
+    public MaskedCell(int row, int col) {
+        super(row,col);
         this.hasMine = setIsMine();
         this.cellValue = "-";
     }

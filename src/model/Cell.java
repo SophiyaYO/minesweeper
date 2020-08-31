@@ -3,11 +3,21 @@ package model;
 import repositories.CellRepository;
 
 public class Cell implements CellRepository {
-    boolean hasMine;
-    String cellValue;
+    private String cellValue;
+    private final int row;
+    private final int col;
 
-    public Cell(){
+    public Cell(int r, int col){
+        this.row= r;
+        this.col = col;
+    }
 
+    public int getRow() {
+        return this.row;
+    }
+
+    public int getCol() {
+        return this.col;
     }
 
     @Override
@@ -22,6 +32,6 @@ public class Cell implements CellRepository {
 
     @Override
     public String getValue() {
-        return null;
+        return this.cellValue;
     }
 }

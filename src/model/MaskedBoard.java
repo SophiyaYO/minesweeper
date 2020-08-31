@@ -14,10 +14,10 @@ public class MaskedBoard extends BoardRepository.GameBoard {
     }
 
     public void updateStatusToMines(int r, int c){
-            super.getBoard()[r][c] = new MineCell(); }
+            super.getBoard()[r][c] = new MineCell(r,c); }
 
-    public void updateStatusToEmpty(int r, int c) {
-            super.getBoard()[r][c] = new EmptyCell();
+    public void updateStatusToEmpty(int row, int col) {
+            super.getBoard()[row][col] = new EmptyCell(row,col);
     }
 
 }

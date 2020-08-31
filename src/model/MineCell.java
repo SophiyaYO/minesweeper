@@ -1,12 +1,11 @@
 package model;
 
-import repositories.CellRepository;
-
 public class MineCell extends Cell {
     boolean hasMine;
     String cellValue;
 
-    public MineCell(){
+    public MineCell(int row, int col) {
+        super(row, col);
         this.hasMine = true;
         this.cellValue = "*";
     }

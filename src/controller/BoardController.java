@@ -55,6 +55,7 @@ public class BoardController {
             for (int[] mine : this.realBoard.getRecursionEmptyCellsCollection()) {
                 this.maskedBoard.updateStatusToEmpty(mine[0], mine[1]);
             }
+            this.realBoard.getRecursionEmptyCellsCollection().clear();
 
         }
         printBoard(this.maskedBoard.getBoard());

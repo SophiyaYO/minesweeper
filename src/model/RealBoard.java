@@ -4,11 +4,13 @@ import repositories.BoardRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 public class RealBoard extends BoardRepository.GameBoard {
     private final List<int[]> mineLocations;
     private List<int[]> recursionEmptyCellsCollection;
+    private Queue<int[]> emptyCellsToCheck;
 
     public RealBoard(int numberLevel) {
         super(numberLevel);
@@ -109,59 +111,83 @@ public class RealBoard extends BoardRepository.GameBoard {
             if (isValidCell(r, c - 1)) {
                 if (this.getBoard()[r][c - 1] instanceof EmptyCell || (this.getBoard()[r][c - 1] instanceof MaskedCell)) {
                     this.setToEmptyCell(r, c - 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r, c - 1});
-                    recursionUpdate(r, c - 1);
+//                    recursionUpdate(r, c - 1);
+
+                    if (!this.getRecursionEmptyCellsCollection().contains(new int[]{r, c - 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r, c - 1});
+                        recursionEmptyCells(r, c - 1);
+                    }
                 }
             }
             if (isValidCell(r, c + 1)) {
                 if (this.getBoard()[r][c + 1] instanceof EmptyCell || (this.getBoard()[r][c + 1] instanceof MaskedCell)) {
                     this.setToEmptyCell(r, c + 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r, c + 1});
-                    recursionUpdate(r, c + 1);
+//                    recursionUpdate(r, c + 1);
 
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r, c + 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r, c + 1});
+                        recursionEmptyCells(r, c + 1);
+                    }
                 }
             }
             if (isValidCell(r + 1, c + 1)) {
                 if (this.getBoard()[r + 1][c + 1] instanceof EmptyCell || this.getBoard()[r + 1][c + 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r + 1, c + 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r + 1, c + 1});
-                    recursionUpdate(r + 1, c + 1);
-
+//                    recursionUpdate(r + 1, c + 1);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r + 1, c + 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r + 1, c + 1});
+                        recursionEmptyCells(r + 1, c + 1);
+                    }
                 }
             }
             if (isValidCell(r + 1, c - 1)) {
                 if (this.getBoard()[r + 1][c - 1] instanceof EmptyCell || this.getBoard()[r + 1][c - 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r + 1, c - 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r + 1, c - 1});
-                    recursionUpdate(r + 1, c - 1);
+//                    recursionUpdate(r + 1, c - 1);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r + 1, c - 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r + 1, c - 1});
+                        recursionEmptyCells(r + 1, c - 1);
+                    }
                 }
             }
             if (isValidCell(r - 1, c + 1)) {
                 if (this.getBoard()[r - 1][c + 1] instanceof EmptyCell || this.getBoard()[r - 1][c + 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r - 1, c + 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r - 1, c + 1});
-                    recursionUpdate(r - 1, c + 1);
+//                    recursionUpdate(r - 1, c + 1);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r - 1, c + 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r - 1, c + 1});
+                        recursionEmptyCells(r - 1, c + 1);
+                    }
                 }
             }
             if (isValidCell(r - 1, c - 1)) {
                 if (this.getBoard()[r - 1][c - 1] instanceof EmptyCell || this.getBoard()[r - 1][c - 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r - 1, c - 1);
-                    this.recursionEmptyCellsCollection.add(new int[]{r - 1, c - 1});
-                    recursionUpdate(r - 1, c - 1);
+//                    recursionUpdate(r - 1, c - 1);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r - 1, c - 1})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r - 1, c - 1});
+                        recursionEmptyCells(r - 1, c - 1);
+                    }
                 }
             }
             if (isValidCell(r - 1, c)) {
                 if (this.getBoard()[r - 1][c] instanceof EmptyCell || this.getBoard()[r - 1][c] instanceof MaskedCell) {
                     this.setToEmptyCell(r - 1, c);
-                    this.recursionEmptyCellsCollection.add(new int[]{r - 1, c});
-                    recursionUpdate(r - 1, c);
+//                    recursionUpdate(r - 1, c);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r - 1, c})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r - 1, c});
+                        recursionEmptyCells(r - 1, c);
+                    }
                 }
             }
             if (isValidCell(r + 1, c)) {
                 if (this.getBoard()[r + 1][c] instanceof EmptyCell || this.getBoard()[r + 1][c] instanceof MaskedCell) {
                     this.setToEmptyCell(r + 1, c);
-                    this.recursionEmptyCellsCollection.add(new int[]{r + 1, c});
-                    recursionUpdate(r + 1, c);
+//                    recursionUpdate(r + 1, c);
+                    if (!this.recursionEmptyCellsCollection.contains(new int[]{r + 1, c})) {
+                        this.recursionEmptyCellsCollection.add(new int[]{r + 1, c});
+                        recursionEmptyCells(r + 1, c);
+                    }
                 }
             }
         } else {
@@ -185,6 +211,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                 if (this.getBoard()[r][c + 1] instanceof EmptyCell || this.getBoard()[r][c + 1] instanceof MaskedCell) {
                     setToEmptyCell(r, c + 1);
                     this.recursionEmptyCellsCollection.add(new int[]{r, c + 1});
+
                 }
             }
             if (isValidCell(r + 1, c + 1)) {
@@ -203,13 +230,13 @@ public class RealBoard extends BoardRepository.GameBoard {
                 if (this.getBoard()[r - 1][c + 1] instanceof EmptyCell || this.getBoard()[r - 1][c + 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r - 1, c + 1);
                     this.recursionEmptyCellsCollection.add(new int[]{r - 1, c + 1});
-
                 }
             }
             if (isValidCell(r - 1, c - 1)) {
                 if (this.getBoard()[r - 1][c - 1] instanceof EmptyCell || this.getBoard()[r - 1][c - 1] instanceof MaskedCell) {
                     this.setToEmptyCell(r - 1, c - 1);
                     this.recursionEmptyCellsCollection.add(new int[]{r - 1, c - 1});
+
                 }
             }
             if (isValidCell(r - 1, c)) {

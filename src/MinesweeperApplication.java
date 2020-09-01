@@ -16,7 +16,7 @@ public class MinesweeperApplication {
         String input = getInput();
         selectedLevel = parseStringToInt(input);
 
-        if (selectedLevel<0 || selectedLevel>2){
+        if (selectedLevel < 0 || selectedLevel > 2) {
             while (selectedLevel < 0 || selectedLevel > 2) {
                 introMsg.getIntroMsg();
 
@@ -28,13 +28,18 @@ public class MinesweeperApplication {
 
         BoardController game = new BoardController(selectedLevel);
         game.initialStart();
+        String[] moveCoord;
+        int rol;
+        int col;
+        try {
+            moveCoord = readNextStringLine();
+            col = parseStringToInt(moveCoord[1]);
+            rol = parseStringToInt(moveCoord[0]);
 
-
-        String[] moveCoord = readNextStringLine();
-        int col = parseStringToInt(moveCoord[1]);
-        int rol = parseStringToInt(moveCoord[0]);
-
-        game.firstCellChosen(rol, col);
+            game.firstCellChosen(rol, col);
+        } catch (Exception e) {
+            System.out.printf("Invalid input!\nSelect number row and coll between 0 and %d, separated by single space.\n", game.getDimension());
+        }
 
         boolean hasLost = false;
         int movesLeft;
@@ -54,7 +59,7 @@ public class MinesweeperApplication {
                     gameMessage.getMsgWon();
                     return;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.printf("Invalid input!\nSelect number row and coll between 0 and %d, separated by single space.\n", game.getDimension());
             }
 

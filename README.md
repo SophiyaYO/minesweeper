@@ -1,6 +1,6 @@
-#[Click here for Spring Boot version](https://github.com/SophiyaYO/minesweeper-spring-boot-console-application)
+# [Click here for Spring Boot version](https://github.com/SophiyaYO/minesweeper-spring-boot-console-application)
 
-##Minesweeper game 
+## Minesweeper game 
 <details>
 <summary>Description</summary>
 

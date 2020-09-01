@@ -12,15 +12,6 @@ public class MinesweeperApplication {
     public static void main(String[] args) throws IOException {
         int selectedLevel;
         IntroMsg introMsg = new IntroMsg();
-
-        do {
-            introMsg.getIntroMsg();
-
-            String input = getInput();
-            selectedLevel = parseStringToInt(input);
-
-        } while (selectedLevel >= 0 && selectedLevel <= 2);
-
         introMsg.getIntroMsg();
 
         String input = getInput();
@@ -65,7 +56,6 @@ public class MinesweeperApplication {
     }
 
     private static String[] readNextStringLine() throws IOException {
-        String[] moveCoord = getInput().split(" ");
-        return moveCoord;
+        return getInput().split(" ");
     }
 }

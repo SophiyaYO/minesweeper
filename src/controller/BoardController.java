@@ -68,7 +68,7 @@ public class BoardController {
 
     public void play(int r, int c) {
         if (isValidCell(r, c)) {
-            this.movesLeft = this.realBoard.decreaseMoves();
+            this.movesLeft = this.realBoard.getMovesLeft();
 //            System.out.println(this.movesLeft);
             //dead statement- if chosen cell is mine
             if (this.realBoard.getCellStatus(r, c)) {

@@ -32,7 +32,7 @@ public class RealBoard extends BoardRepository.GameBoard {
 
     @Override
     public int getMovesLeft() {
-        return this.movesLeft;
+        return super.getMovesLeft();
     }
 
     public List<Cell> getRecursionEmptyCellsCollection() {

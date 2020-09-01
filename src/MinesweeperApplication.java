@@ -10,28 +10,38 @@ public class MinesweeperApplication {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) throws IOException {
+        int selectedLevel;
         IntroMsg introMsg = new IntroMsg();
+
+        do {
+            introMsg.getIntroMsg();
+
+            String input = getInput();
+            selectedLevel = parseStringToInt(input);
+
+        } while (selectedLevel >= 0 && selectedLevel <= 2);
+
         introMsg.getIntroMsg();
 
-        String input = reader.readLine();
-        int selectedLevel = Integer.parseInt(input);
+        String input = getInput();
+        selectedLevel = parseStringToInt(input);
 
         BoardController game = new BoardController(selectedLevel);
         game.initialStart();
 
-        String[] moveCoord = reader.readLine().split(" ");
-        int col = Integer.parseInt(moveCoord[1]);
-        int rol = Integer.parseInt(moveCoord[0]);
+        String[] moveCoord = readNextStringLine();
+        int col = parseStringToInt(moveCoord[1]);
+        int rol = parseStringToInt(moveCoord[0]);
 
         game.firstCellChosen(rol, col);
 
         boolean hasLost = false;
-        int movesLeft = 0;
+        int movesLeft;
 
         while (!hasLost) {
-            moveCoord = reader.readLine().split(" ");
-            col = Integer.parseInt(moveCoord[1]);
-            rol = Integer.parseInt(moveCoord[0]);
+            moveCoord = getInput().split(" ");
+            col = parseStringToInt(moveCoord[1]);
+            rol = parseStringToInt(moveCoord[0]);
 
             game.play(rol, col);
             movesLeft = game.getMovesLeft();
@@ -44,5 +54,18 @@ public class MinesweeperApplication {
             }
         }
 
+    }
+
+    private static String getInput() throws IOException {
+        return reader.readLine();
+    }
+
+    private static int parseStringToInt(String moveCoord) {
+        return Integer.parseInt(moveCoord);
+    }
+
+    private static String[] readNextStringLine() throws IOException {
+        String[] moveCoord = getInput().split(" ");
+        return moveCoord;
     }
 }

@@ -3,7 +3,7 @@ package repositories;
 import model.Cell;
 import model.MaskedCell;
 
-public interface BoardRepository {
+public interface BoardRepository  {
     int getRolls();
 
     Cell[][] getBoard();

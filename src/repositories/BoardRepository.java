@@ -31,7 +31,7 @@ public interface BoardRepository  {
             }
         }
 
-        private void setRolls() {
+        public void setRolls() {
             switch (getLevel()) {
                 case 0:
                     this.rolls = 9;

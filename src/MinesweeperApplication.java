@@ -9,16 +9,26 @@ import java.io.InputStreamReader;
 public class MinesweeperApplication {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void main(String[] args) throws IOException {
-        int selectedLevel;
+    public static void main(String[] args) throws IOException, ArrayIndexOutOfBoundsException {
         IntroMsg introMsg = new IntroMsg();
         introMsg.getIntroMsg();
-
+        int selectedLevel;
         String input = getInput();
         selectedLevel = parseStringToInt(input);
 
+        if (selectedLevel<0 || selectedLevel>2){
+            while (selectedLevel < 0 || selectedLevel > 2) {
+                introMsg.getIntroMsg();
+
+                input = getInput();
+                selectedLevel = parseStringToInt(input);
+            }
+        }
+
+
         BoardController game = new BoardController(selectedLevel);
         game.initialStart();
+
 
         String[] moveCoord = readNextStringLine();
         int col = parseStringToInt(moveCoord[1]);
@@ -30,19 +40,24 @@ public class MinesweeperApplication {
         int movesLeft;
 
         while (!hasLost) {
-            moveCoord = getInput().split(" ");
-            col = parseStringToInt(moveCoord[1]);
-            rol = parseStringToInt(moveCoord[0]);
+            try {
+                moveCoord = getInput().split(" ");
+                col = parseStringToInt(moveCoord[1]);
+                rol = parseStringToInt(moveCoord[0]);
 
-            game.play(rol, col);
-            movesLeft = game.getMovesLeft();
-            hasLost = game.getDead();
+                game.play(rol, col);
+                movesLeft = game.getMovesLeft();
+                hasLost = game.getDead();
 
-            if (movesLeft == 0) {
-                GameMessage gameMessage = new GameMessage();
-                gameMessage.getMsgWon();
-                return;
+                if (movesLeft == 0) {
+                    GameMessage gameMessage = new GameMessage();
+                    gameMessage.getMsgWon();
+                    return;
+                }
+            }catch (Exception e){
+                System.out.printf("Invalid input!\nSelect number row and coll between 0 and %d, separated by single space.\n", game.getDimension());
             }
+
         }
 
     }

@@ -32,6 +32,10 @@ public class BoardController {
         return this.dead;
     }
 
+    public int getDimension(){
+        return this.realBoard.getRolls();
+    }
+
     public int getMovesLeft() {
         return this.movesLeft;
     }
@@ -52,7 +56,6 @@ public class BoardController {
                 this.getRealBoard()[r][c] = new EmptyCell(r, c);
             }
 
-//            printBoard(this.getRealBoard());//todo: delete this row later
             this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
 
             if (checkIfCellIsEmpty(r, c)) {
@@ -66,39 +69,41 @@ public class BoardController {
 
     }
 
-    public void play(int r, int c) {
-        if (isValidCell(r, c)) {
-            this.movesLeft = this.realBoard.getMovesLeft();
-//            System.out.println(this.movesLeft);
-            //dead statement- if chosen cell is mine
-            if (this.realBoard.getCellStatus(r, c)) {
+    public void play(int r, int c) throws ArrayIndexOutOfBoundsException{
+        try{
+            if (isValidCell(r, c)) {
+                this.movesLeft = this.realBoard.getMovesLeft();
+                //dead statement- if chosen cell is mine
+                if (this.realBoard.getCellStatus(r, c)) {
 
-                for (int[] mine : this.realBoard.getMineLocations()) {
-                    this.maskedBoard.updateStatusToMines((mine)[0], (mine)[1]);
-                }
+                    for (int[] mine : this.realBoard.getMineLocations()) {
+                        this.maskedBoard.updateStatusToMines((mine)[0], (mine)[1]);
+                    }
 
-                this.setDead();
-                printCurrentClientBoardAndMsgs();
-            } else {
-
-                if (checkIfCellIsEmpty(r, c)) {
-                    //recursive
-                    this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
-                    openAdjacentEmptyCells(r, c);
-
-                    printBoard(this.maskedBoard.getBoard());
-                    this.movesLeft = this.realBoard.getMovesLeft();
-                    this.activeMsg.getMsgMove();
-
+                    this.setDead();
+                    printCurrentClientBoardAndMsgs();
                 } else {
-                    this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
-                    printBoard(this.maskedBoard.getBoard());
-                    this.activeMsg.getMsgMove();
+
+                    if (checkIfCellIsEmpty(r, c)) {
+                        this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
+                        openAdjacentEmptyCells(r, c);
+
+                        printBoard(this.maskedBoard.getBoard());
+                        this.movesLeft = this.realBoard.getMovesLeft();
+                        this.activeMsg.getMsgMove();
+
+                    } else {
+                        this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
+                        printBoard(this.maskedBoard.getBoard());
+                        this.activeMsg.getMsgMove();
+                    }
                 }
             }
-        } else {
-            //todo: exceptions
+
+        }catch (Exception exception) {
+            System.out.printf("Invalid input!\nSelect number row and coll between 0 and %d, separated by single space.", this.realBoard.getRolls());
         }
+
     }
 
     private boolean isValidCell(int row, int col) {

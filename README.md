@@ -1,5 +1,9 @@
 # [Click here for Spring Boot version](https://github.com/SophiyaYO/minesweeper-spring-boot-console-application)
 
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/SophiyaYO)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/check-it-out.svg)](https://forthebadge.com)
+
 ## Minesweeper game 
 <details>
 <summary>Description</summary>

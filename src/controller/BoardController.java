@@ -52,7 +52,7 @@ public class BoardController {
                 this.getRealBoard()[r][c] = new EmptyCell(r, c);
             }
 
-            printBoard(this.getRealBoard());//todo: delete this row later
+//            printBoard(this.getRealBoard());//todo: delete this row later
             this.getMaskedBoard()[r][c] = this.getRealBoard()[r][c];
 
             if (checkIfCellIsEmpty(r, c)) {
@@ -69,7 +69,7 @@ public class BoardController {
     public void play(int r, int c) {
         if (isValidCell(r, c)) {
             this.movesLeft = this.realBoard.decreaseMoves();
-            System.out.println(this.movesLeft);
+//            System.out.println(this.movesLeft);
             //dead statement- if chosen cell is mine
             if (this.realBoard.getCellStatus(r, c)) {
 

@@ -9,6 +9,7 @@ import java.util.Random;
 public class RealBoard extends BoardRepository.GameBoard {
     private final List<int[]> mineLocations;
     private final List<Cell> recursionEmptyCellsCollection;
+    private int movesLeft;
 
     public RealBoard(int numberLevel) {
         super(numberLevel);
@@ -27,6 +28,11 @@ public class RealBoard extends BoardRepository.GameBoard {
 
     public List<int[]> getMineLocations() {
         return this.mineLocations;
+    }
+
+    @Override
+    public int getMovesLeft() {
+        return this.movesLeft;
     }
 
     public List<Cell> getRecursionEmptyCellsCollection() {
@@ -111,7 +117,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.getRecursionEmptyCellsCollection().contains(this.getBoard()[r][c - 1])) {
                         this.setToEmptyCell(r, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r][c - 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r, c - 1);
                     }
                 }
@@ -122,7 +128,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r][c + 1])) {
                         this.setToEmptyCell(r, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r][c + 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r, c + 1);
                     }
                 }
@@ -132,7 +138,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c + 1])) {
                         this.setToEmptyCell(r + 1, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c + 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r + 1, c + 1);
                     }
                 }
@@ -142,7 +148,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c - 1])) {
                         this.setToEmptyCell(r + 1, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c - 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r + 1, c - 1);
                     }
                 }
@@ -152,7 +158,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c + 1])) {
                         this.setToEmptyCell(r - 1, c + 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c + 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r - 1, c + 1);
                     }
                 }
@@ -162,7 +168,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c - 1])) {
                         this.setToEmptyCell(r - 1, c - 1);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c - 1]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r - 1, c - 1);
                     }
                 }
@@ -172,7 +178,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r - 1][c])) {
                         this.setToEmptyCell(r - 1, c);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r - 1][c]);
-                        this.decreaseMoves();
+                        this.movesLeft=this.decreaseMoves();
                         recursionEmptyCells(r - 1, c);
                     }
                 }
@@ -182,7 +188,7 @@ public class RealBoard extends BoardRepository.GameBoard {
                     if (!this.recursionEmptyCellsCollection.contains(this.getBoard()[r + 1][c])) {
                         this.setToEmptyCell(r + 1, c);
                         this.recursionEmptyCellsCollection.add(this.getBoard()[r + 1][c]);
-                        this.decreaseMoves();
+                        this.movesLeft= this.decreaseMoves();
                         recursionEmptyCells(r + 1, c);
                     }
                 }

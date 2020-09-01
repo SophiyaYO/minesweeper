@@ -90,7 +90,8 @@ public interface BoardRepository {
         }
 
         public int decreaseMoves(){
-            return this.getMovesLeft()-1;
+            this.movesLeft = this.movesLeft -1;
+            return this.movesLeft;
         }
 
         public int getMovesLeft() {

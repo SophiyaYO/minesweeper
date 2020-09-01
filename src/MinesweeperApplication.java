@@ -29,7 +29,7 @@ public class MinesweeperApplication {
         boolean hasLost = false;
         int movesLeft = 0;
 
-        while (!hasLost && movesLeft > 0) {
+        while (!hasLost) {
             moveCoord = reader.readLine().split(" ");
             col = Integer.parseInt(moveCoord[1]);
             rol = Integer.parseInt(moveCoord[0]);
@@ -38,11 +38,13 @@ public class MinesweeperApplication {
             movesLeft = game.getMovesLeft();
             hasLost = game.getDead();
 
+            if (movesLeft == 0) {
+                GameMessage gameMessage = new GameMessage();
+                gameMessage.getMsgWon();
+                return;
+            }
+
         }
 
-        if (!hasLost) {
-            GameMessage gameMessage = new GameMessage();
-            gameMessage.getMsgWon();
-        }
     }
 }

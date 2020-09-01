@@ -71,6 +71,10 @@ public class BoardController {
 
     public void play(int r, int c) throws ArrayIndexOutOfBoundsException{
         try{
+            if (this.getMaskedBoard()[r][c] instanceof EmptyCell || this.getMaskedBoard()[r][c] instanceof DigitCell){
+                System.out.println("This cell is already open.\nTry other.");
+                return;
+            }
             if (isValidCell(r, c)) {
                 this.movesLeft = this.realBoard.getMovesLeft();
                 //dead statement- if chosen cell is mine
